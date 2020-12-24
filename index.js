@@ -3,55 +3,12 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// rotas básicas
+const rotas_basicas = require('./routes/rotas_basicas')
+const manipulando_rotas = require('./routes/manipulando_rotas')
+const router_route = require('./routes/router_route')
 
-app.get('/', (req, res) => {
-    res.send('Hello world!')
-})
-
-app.post('/', (req, res) => {
-    res.send('Got a POST request')
-})
-
-app.put('/user', (req, res) => {
-    res.send('Got a PUT request at /user')
-})
-
-app.delete('/user', (req, res) => {
-    res.send('Got a DELETE request at user')
-})
-
-// manipulando rotas
-
-const func1 = function (req, res, next) {
-    console.log('func1')
-    next()
-}
-
-const func2 = function (req, res, next) {
-    console.log('func2')
-    next()
-}
-
-const func3 = function (req, res, next) {
-    console.log('func3')
-    next()
-}
-
-app.get('/manipulacoesemanipulacao', [func1, func2, func3], (req, res, next) => {
-    console.log('The response will be sent by the next function!')
-    next()
-}, (req, res) => {
-    res.send('Hello manipulador')
-})
-
-app.get('/multiplasmanupulacoes', [func1, func2, func3])
-
-app.get('/manupuladoresderota', (req, res, next) => {
-    console.log('The response will be sent by the next function!')
-    next()
-}, (req, res) => {
-    res.send('Hello manipulador de rota')
-})
+app.use('/rotas_basicas', rotas_basicas)
+app.use('/manipulando_rotas', manipulando_rotas)
+app.use('/router_route', router_route)
 
 app.listen(port)
